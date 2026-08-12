@@ -1,6 +1,6 @@
 # panproto for Swift
 
-Swift bindings for [panproto](https://github.com/panproto/panproto), linking `libpanproto_c`, the C ABI exposed by the [`panproto-c`](https://github.com/panproto/panproto/blob/v0.70.0/crates/panproto-c) crate. Every one of its 120 entry points is reachable: schemas, instances, migrations, lenses, theories, the expression language, compatibility checking, homomorphism search, graph fibers, datasets, version control, and the feature-gated parse, project, and git tiers.
+Swift bindings for [panproto](https://github.com/panproto/panproto), linking `libpanproto_c`, the C ABI exposed by the [`panproto-c`](https://github.com/panproto/panproto/blob/v0.70.1/crates/panproto-c) crate. Every one of its 120 entry points is reachable: schemas, instances, migrations, lenses, theories, the expression language, compatibility checking, homomorphism search, graph fibers, datasets, version control, and the feature-gated parse, project, and git tiers.
 
 The package targets macOS 14 and iOS 17, builds in Swift 6 language mode with strict concurrency, and resolves no dependency on an ordinary build. Building the documentation opts into one, the DocC plugin.
 
@@ -15,7 +15,7 @@ swift test
 `dev-link.sh` needs a Rust toolchain. To skip it, `./bootstrap/fetch-bindist.sh` downloads a prebuilt library for the host platform from the matching GitHub Release. For iOS, fetch the XCFramework instead:
 
 ```sh
-./bootstrap/fetch-bindist.sh v0.69.0 default --xcframework
+./bootstrap/fetch-bindist.sh --xcframework
 PANPROTO_SWIFT_XCFRAMEWORK=.panproto-c/panproto_c.xcframework swift build
 ```
 
@@ -239,11 +239,11 @@ Every listing in an article is a function in the test target, quoted without cha
 
 The DocC plugin is the package's only external dependency, and it is opted into with `PANPROTO_SWIFT_DOCC=1` so that an ordinary `swift build` reaches no network.
 
-- [Swift SDK reference](https://github.com/panproto/panproto/blob/v0.70.0/book/src/reference/sdk-swift.md)
-- [Install the Swift SDK](https://github.com/panproto/panproto/blob/v0.70.0/book/src/how-to/install/swift.md)
-- [Define a schema from Swift](https://github.com/panproto/panproto/blob/v0.70.0/book/src/how-to/define-schema/swift.md)
-- [The C ABI contract](https://github.com/panproto/panproto/blob/v0.70.0/crates/panproto-c/CONTRACT.md)
+- [Swift SDK reference](https://github.com/panproto/panproto/blob/v0.70.1/book/src/reference/sdk-swift.md)
+- [Install the Swift SDK](https://github.com/panproto/panproto/blob/v0.70.1/book/src/how-to/install/swift.md)
+- [Define a schema from Swift](https://github.com/panproto/panproto/blob/v0.70.1/book/src/how-to/define-schema/swift.md)
+- [The C ABI contract](https://github.com/panproto/panproto/blob/v0.70.1/crates/panproto-c/CONTRACT.md)
 
 ## License
 
-MIT. See [LICENSE](https://github.com/panproto/panproto/blob/v0.70.0/LICENSE).
+MIT. See [LICENSE](https://github.com/panproto/panproto/blob/v0.70.1/LICENSE).
