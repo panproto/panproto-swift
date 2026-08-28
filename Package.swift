@@ -22,9 +22,9 @@ import PackageDescription
 // quote and writes it back verbatim, so the line break and its indentation
 // survive every republish.
 private let releaseXCFrameworkURL =
-    "https://github.com/panproto/panproto/releases/download/v0.71.0/panproto_c.xcframework.zip"
+    "https://github.com/panproto/panproto/releases/download/v0.72.0/panproto_c.xcframework.zip"
 private let releaseXCFrameworkChecksum =
-    "dc7a9a22e208749dadd6c7c916e5df4dd9a658f81bdf165a4377b095b94fdee5"
+    "8f3a6d68d562dc1a6dabe96e974818ef8b4f61c0b00cbec3acd5ff967f2c7051"
 
 // MARK: - Build configuration
 //
@@ -118,6 +118,30 @@ private func packageRelative(_ path: String) -> String {
     return (ascent + target[shared...]).joined(separator: "/")
 }
 
+/// Whether this manifest sits in the panproto workspace rather than in
+/// the published mirror.
+///
+/// The mirror is a copy of this directory with the crates left behind, so
+/// the sibling crate is what tells the two apart. The distinction decides
+/// whether the release pin is meaningful. In the mirror the sources and
+/// the pin are published together by the same job, so the pin describes
+/// exactly the artifact those sources need. In the workspace the sources
+/// track `main` and can be ahead of every published artifact, which is
+/// what happens whenever a release adds a C ABI export: the tag still
+/// names the previous release, whose header predates the new entry
+/// points, so a checkout that fell back to the pin failed to compile on
+/// a symbol that release did not carry. Falling back to a released
+/// artifact in a source checkout cannot be right, so this manifest does
+/// not.
+private let inWorkspace: Bool = {
+    let crate =
+        packageDirectory
+        .deletingLastPathComponent()
+        .deletingLastPathComponent()
+        .appendingPathComponent("crates/panproto-c/Cargo.toml")
+    return FileManager.default.fileExists(atPath: crate.standardizedFileURL.path)
+}()
+
 private let cPanprotoTarget: Target = {
     if let local = env["PANPROTO_SWIFT_XCFRAMEWORK"], !local.isEmpty {
         // `binaryTarget(path:)` takes a package-relative path and
@@ -132,13 +156,18 @@ private let cPanprotoTarget: Target = {
     {
         return .binaryTarget(name: "CPanproto", url: url, checksum: checksum)
     }
-    if devLinkLibraryDirectory == nil, !releaseXCFrameworkURL.isEmpty {
+    if devLinkLibraryDirectory == nil, !inWorkspace, !releaseXCFrameworkURL.isEmpty {
         return .binaryTarget(
             name: "CPanproto",
             url: releaseXCFrameworkURL,
             checksum: releaseXCFrameworkChecksum
         )
     }
+    // In the workspace, and in dev-link mode anywhere, the vendored header
+    // is the one that matches these sources. A checkout with nothing
+    // staged reaches here and fails at the linker naming `panproto_c`,
+    // which points at `bootstrap/dev-link.sh`, rather than at a symbol the
+    // pinned artifact happened not to carry.
     return .systemLibrary(name: "CPanproto", path: "Sources/CPanproto")
 }()
 
