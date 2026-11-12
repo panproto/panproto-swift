@@ -1,14 +1,14 @@
 # panproto for Swift
 
 [![Swift 6.1](https://img.shields.io/badge/Swift-6.1-F05138.svg)](https://www.swift.org/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/panproto/panproto/blob/v0.76.1/LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/panproto/panproto/blob/v0.77.0/LICENSE)
 
-This package binds the [`panproto-c`](https://github.com/panproto/panproto/blob/v0.76.1/crates/panproto-c) C ABI. It
+This package binds the [`panproto-c`](https://github.com/panproto/panproto/blob/v0.77.0/crates/panproto-c) C ABI. It
 targets macOS 14 and iOS 17, uses Swift 6 language mode, and enables strict
 concurrency checks.
 
-The raw Swift layer covers all 122 C entry points declared by the base and
-feature-gated headers. The default library supplies 105 of them. The other 17
+The raw Swift layer covers all 124 C entry points declared by the base and
+feature-gated headers. The default library supplies 107 of them. The other 17
 belong to the parse, project, and Git feature groups.
 
 ## Features
@@ -34,7 +34,7 @@ target uses:
 dependencies: [
     .package(
         url: "https://github.com/panproto/panproto-swift.git",
-        from: "0.74.0"
+        from: "0.77.0"
     ),
 ],
 targets: [
@@ -168,7 +168,7 @@ effect.
 target instance from the surviving mapped part of a source instance. The
 categorical transports are separate: `Delta` reindexes a target instance back
 to the source, while a general left Kan extension computes the source-to-target
-`Sigma` transport. [The vocabulary in plain terms](https://github.com/panproto/panproto/blob/v0.76.1/book/src/explanation/decoder-ring.md)
+`Sigma` transport. [The vocabulary in plain terms](https://github.com/panproto/panproto/blob/v0.77.0/book/src/explanation/decoder-ring.md)
 defines both.
 
 Lens `get` projects a source instance to a target-shaped view and returns an
@@ -251,10 +251,10 @@ PANPROTO_SWIFT_DOCC=1 swift package generate-documentation --target Panproto
 
 Additional references:
 
-- [Swift SDK reference](https://github.com/panproto/panproto/blob/v0.76.1/book/src/reference/sdk-swift.md)
-- [Install the Swift SDK](https://github.com/panproto/panproto/blob/v0.76.1/book/src/how-to/install/swift.md)
-- [Define a schema from Swift](https://github.com/panproto/panproto/blob/v0.76.1/book/src/how-to/define-schema/swift.md)
-- [C ABI contract](https://github.com/panproto/panproto/blob/v0.76.1/crates/panproto-c/CONTRACT.md)
+- [Swift SDK reference](https://github.com/panproto/panproto/blob/v0.77.0/book/src/reference/sdk-swift.md)
+- [Install the Swift SDK](https://github.com/panproto/panproto/blob/v0.77.0/book/src/how-to/install/swift.md)
+- [Define a schema from Swift](https://github.com/panproto/panproto/blob/v0.77.0/book/src/how-to/define-schema/swift.md)
+- [C ABI contract](https://github.com/panproto/panproto/blob/v0.77.0/crates/panproto-c/CONTRACT.md)
 
 ## Further reading
 
@@ -270,4 +270,4 @@ Additional references:
 
 ## License
 
-[MIT](https://github.com/panproto/panproto/blob/v0.76.1/LICENSE)
+[MIT](https://github.com/panproto/panproto/blob/v0.77.0/LICENSE)
